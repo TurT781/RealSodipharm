@@ -1,0 +1,52 @@
+/*HomePage CSS*/
+.descentes-title{
+    color: #1F3576;
+    text-align: center;
+    margin-top: 50px;
+}
+.filters{
+    color: black;
+    display: flex;
+    margin: 80px 0px 0px 20px;
+}
+.filters div{
+    padding-right: 20px;
+}
+.descentes-scroll{
+    margin-top: 50px; 
+    overflow-x: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: #68C7C0;
+    /*-ms-overflow-style: none; /* Cache la scrollbar pour IE et Edge */
+    /*scrollbar-width: none; /* pour Firefox */
+}
+/* Cacher la scrollbar sur Chrome, Safari et Opéra */
+.descentes-scroll::-webkit-scrollbar{
+    /*display: none;*/
+    background-color: #68C7C0;
+}
+.descentes-scroll ul{
+    display: inline-flex;
+}
+.descentes-scroll li{
+    background-color: #1F3576;
+    width: 250px;
+    height: 170px;
+    border-radius: 15px;
+    box-shadow: -4px 4px 4px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    list-style: none;
+    margin-right: 50px;
+}
+.descentes-scroll li:hover{
+    transform: scale(1.05);
+    transition: 0.5s ease;
+}
+.descentes-scroll li:active{
+    transform: scale(0.95);
+}
+.descentes-scroll h3{
+    padding: 71px 0px 71px 0px;
+    margin: 0;
+}
+

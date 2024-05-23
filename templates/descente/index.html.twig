@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créez votre Descente !{% endblock %}
+{% block stylesheet %}
+<link rel="stylesheet" href="../assets/styles/descente.css">
+{% endblock %}
+{% block body %}
+{% include 'header.html.twig' %}
+<section>
+        <div class="left-panel">
+            <h1>Titre</h1>
+            <select name="famille-select" id="famille">
+                <option value="">Famille</option>
+            </select>
+            <div class="etageres-dropdown">
+                <p>Etagères</p>
+                <span class="material-symbols-outlined">arrow_drop_down</span>
+            </div>
+        </div>
+        <div class="zone-creation">
+            <button class="sm-bttn">Valider</button>
+        </div>
+    </section>
+{% endblock %}
