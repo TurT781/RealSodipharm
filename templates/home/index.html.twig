@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home Page{% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" href="../assets/styles/homepage.css">
+{% endblock %}
+
+{% block body %}
+{% include 'header.html.twig' %}
+<h1 class="descentes-title">MES DESCENTES</h1>
+    <div class="filters">
+        <div>
+            <input type="checkbox" id="used" name="used"/>
+            <label for="used">Utilisés</label>
+        </div>
+        <div>
+            <input type="checkbox" id="unused" name="unused"/>
+            <label for="unused">Pas Utilisés</label>
+        </div>
+    </div>
+    <div class="descentes-scroll">
+        <ul>
+            <li><h3>Descente</h3></li>
+            <li><h3>Descente</h3></li>
+            <li><h3>Descente</h3></li>
+            <li><h3>Descente</h3></li>
+            <li><h3>Descente</h3></li>
+            <li><h3>Descente</h3></li>
+            <li><h3>Descente</h3></li>
+            <li><h3>Descente</h3></li>
+            <li><h3>Descente</h3></li>
+            <li><h3>Descente</h3></li>
+        </ul>
+    </div>
+    <button class="lg-bttn" type="button">Créer une descente</button>
+{% endblock %}
