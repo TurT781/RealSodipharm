@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\DescenteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: DescenteRepository::class)]
@@ -22,8 +24,23 @@ class Descente
     #[ORM\Column]
     private ?int $largeur = null;
 
-    #[ORM\ManyToOne(inversedBy: 'descente_id')]
-    private ?Etagere $etagere = null;
+    /**
+     * @var Collection<int, Etagere>
+     */
+    #[ORM\OneToMany(targetEntity: Etagere::class, mappedBy: 'descente')]
+    private Collection $etageres;
+
+    /**
+     * @var Collection<int, EtagereArticle>
+     */
+    #[ORM\OneToMany(targetEntity: EtagereArticle::class, mappedBy: 'descente')]
+    private Collection $etagereArticles;
+
+    public function __construct()
+    {
+        $this->etageres = new ArrayCollection();
+        $this->etagereArticles = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -66,14 +83,62 @@ class Descente
         return $this;
     }
 
-    public function getEtagere(): ?Etagere
+    /**
+     * @return Collection<int, Etagere>
+     */
+    public function getEtageres(): Collection
     {
-        return $this->etagere;
+        return $this->etageres;
     }
 
-    public function setEtagere(?Etagere $etagere): static
+    public function addEtagere(Etagere $etagere): static
     {
-        $this->etagere = $etagere;
+        if (!$this->etageres->contains($etagere)) {
+            $this->etageres->add($etagere);
+            $etagere->setDescente($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEtagere(Etagere $etagere): static
+    {
+        if ($this->etageres->removeElement($etagere)) {
+            // set the owning side to null (unless already changed)
+            if ($etagere->getDescente() === $this) {
+                $etagere->setDescente(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EtagereArticle>
+     */
+    public function getEtagereArticles(): Collection
+    {
+        return $this->etagereArticles;
+    }
+
+    public function addEtagereArticle(EtagereArticle $etagereArticle): static
+    {
+        if (!$this->etagereArticles->contains($etagereArticle)) {
+            $this->etagereArticles->add($etagereArticle);
+            $etagereArticle->setDescente($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEtagereArticle(EtagereArticle $etagereArticle): static
+    {
+        if ($this->etagereArticles->removeElement($etagereArticle)) {
+            // set the owning side to null (unless already changed)
+            if ($etagereArticle->getDescente() === $this) {
+                $etagereArticle->setDescente(null);
+            }
+        }
 
         return $this;
     }

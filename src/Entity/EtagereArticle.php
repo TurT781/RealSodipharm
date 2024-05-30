@@ -14,10 +14,10 @@ class EtagereArticle
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'etagereArticles')]
-    private ?etagere $descente = null;
+    private ?article $article = null;
 
     #[ORM\ManyToOne(inversedBy: 'etagereArticles')]
-    private ?article $article_id = null;
+    private ?descente $descente = null;
 
     #[ORM\Column]
     private ?int $position = null;
@@ -27,26 +27,26 @@ class EtagereArticle
         return $this->id;
     }
 
-    public function getDescente(): ?etagere
+    public function getArticle(): ?article
     {
-        return $this->descente;
+        return $this->article;
     }
 
-    public function setDescente(?etagere $descente): static
+    public function setArticle(?article $article): static
     {
-        $this->descente = $descente;
+        $this->article = $article;
 
         return $this;
     }
 
-    public function getArticleId(): ?article
+    public function getDescente(): ?descente
     {
-        return $this->article_id;
+        return $this->descente;
     }
 
-    public function setArticleId(?article $article_id): static
+    public function setDescente(?descente $descente): static
     {
-        $this->article_id = $article_id;
+        $this->descente = $descente;
 
         return $this;
     }
