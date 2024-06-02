@@ -24,10 +24,25 @@ class Article
     #[ORM\Column]
     private ?int $largeur = null;
 
+    #[ORM\Column]
+    private ?int $longueur = null;
+
+    #[ORM\Column]
+    private ?int $poids = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $univers = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $famille = null;
+
+    #[ORM\Column]
+    private ?int $code = null;
+
     /**
      * @var Collection<int, EtagereArticle>
      */
-    #[ORM\OneToMany(targetEntity: EtagereArticle::class, mappedBy: 'article_id')]
+    #[ORM\OneToMany(targetEntity: EtagereArticle::class, mappedBy: 'article')]
     private Collection $etagereArticles;
 
     public function __construct()
@@ -76,6 +91,66 @@ class Article
         return $this;
     }
 
+    public function getLongueur(): ?int
+    {
+        return $this->longueur;
+    }
+
+    public function setLongueur(int $longueur): static
+    {
+        $this->longueur = $longueur;
+
+        return $this;
+    }
+
+    public function getPoids(): ?int
+    {
+        return $this->poids;
+    }
+
+    public function setPoids(int $poids): static
+    {
+        $this->poids = $poids;
+
+        return $this;
+    }
+
+    public function getUnivers(): ?string
+    {
+        return $this->univers;
+    }
+
+    public function setUnivers(string $univers): static
+    {
+        $this->univers = $univers;
+
+        return $this;
+    }
+
+    public function getFamille(): ?string
+    {
+        return $this->famille;
+    }
+
+    public function setFamille(string $famille): static
+    {
+        $this->famille = $famille;
+
+        return $this;
+    }
+
+    public function getCode(): ?int
+    {
+        return $this->code;
+    }
+
+    public function setCode(int $code): static
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, EtagereArticle>
      */
@@ -88,7 +163,7 @@ class Article
     {
         if (!$this->etagereArticles->contains($etagereArticle)) {
             $this->etagereArticles->add($etagereArticle);
-            $etagereArticle->setArticleId($this);
+            $etagereArticle->setArticle($this);
         }
 
         return $this;
@@ -98,8 +173,8 @@ class Article
     {
         if ($this->etagereArticles->removeElement($etagereArticle)) {
             // set the owning side to null (unless already changed)
-            if ($etagereArticle->getArticleId() === $this) {
-                $etagereArticle->setArticleId(null);
+            if ($etagereArticle->getArticle() === $this) {
+                $etagereArticle->setArticle(null);
             }
         }
 
