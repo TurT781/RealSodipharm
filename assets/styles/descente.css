@@ -37,6 +37,28 @@ header{
     border-width: 2px 0px 2px 0px;
     padding: 0px 20px 0px 20px;
 }
+.form-etagere{
+    grid-column: 1/4;
+}
+.form-etagere form{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin: 10px 20px 10px 20px;
+}
+.form-etagere input{
+    width: 80px;
+    border-radius: 10px;
+    border: none;
+    padding: 0px 5px 0px 5px;
+    margin-left: 15px;
+}
+.form-etagere form div div{
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 5px;
+}
 .zone-creation{
     grid-column: 2/6;
     display: grid;
@@ -47,3 +69,5 @@ header{
     grid-column: 9/10;
     grid-row: 10/11;
 }
+
+
