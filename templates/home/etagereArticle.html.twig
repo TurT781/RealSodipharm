@@ -1,0 +1,29 @@
+{% comment %} fichier etagere.html.twig {% endcomment %}
+
+<table class="sortable">
+    <thead>
+        <tr>
+            <th>&nbsp;</th>
+            <th>ID</th>
+            <th>Libellé</th>
+            <th>Hauteur</th>
+            <th>Largeur</th>
+            {% comment %} <th>Longueur</th> {% endcomment %}
+            {% comment %} <th>Poids</th> {% endcomment %}
+            {% comment %} <th>Univers</th> {% endcomment %}
+            {% comment %} <th>Famille</th> {% endcomment %}
+            {% comment %} <th>Code</th> {% endcomment %}
+            {% comment %} <th>Position</th> {% endcomment %}
+        </tr>
+    </thead>
+    <tbody>
+    {% for article in articles %}
+        <tr draggable="true" rel="{{ article.id }}">
+            <td><i class="fa fa-arrows"></i></td>
+            <td><a href="{{ path('draggable_article_show', { 'id': article.id }) }}">{{ article.id }}</a></td>
+            <td>{{ article.position }}</td>
+            <td>{{ article.libelle }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
