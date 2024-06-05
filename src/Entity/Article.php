@@ -39,6 +39,9 @@ class Article
     #[ORM\Column]
     private ?int $code = null;
 
+    #[ORM\Column]
+    private ?int $position = null;
+
     /**
      * @var Collection<int, EtagereArticle>
      */
@@ -151,6 +154,18 @@ class Article
         return $this;
     }
 
+    public function getPosition(): ?int
+    {
+        return $this->position;
+    }
+
+    public function setPosition(int $position): static
+    {
+        $this->position = $position;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, EtagereArticle>
      */
@@ -179,5 +194,17 @@ class Article
         }
 
         return $this;
+    }
+    /**
+     * @ORM\OneToMany(targetEntity=EtagereArticle::class, mappedBy="article")
+     */ 
+    private Collection $positions;
+
+    /**
+     * @return Collection<int, EtagereArticle>
+     */
+    public function getPositions(): Collection
+    {
+        return $this->positions;
     }
 }
