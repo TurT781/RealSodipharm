@@ -1,5 +1,7 @@
 <?php
 
+// src/Entity/EtagereArticle.php
+
 namespace App\Entity;
 
 use App\Repository\EtagereArticleRepository;
@@ -14,10 +16,10 @@ class EtagereArticle
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'etagereArticles')]
-    private ?article $article = null;
+    private ?Article $article = null;
 
     #[ORM\ManyToOne(inversedBy: 'etagereArticles')]
-    private ?descente $descente = null;
+    private ?Descente $descente = null;
 
     #[ORM\Column]
     private ?int $position = null;
@@ -27,24 +29,24 @@ class EtagereArticle
         return $this->id;
     }
 
-    public function getArticle(): ?article
+    public function getArticle(): ?Article
     {
         return $this->article;
     }
 
-    public function setArticle(?article $article): static
+    public function setArticle(?Article $article): static
     {
         $this->article = $article;
 
         return $this;
     }
 
-    public function getDescente(): ?descente
+    public function getDescente(): ?Descente
     {
         return $this->descente;
     }
 
-    public function setDescente(?descente $descente): static
+    public function setDescente(?Descente $descente): static
     {
         $this->descente = $descente;
 
