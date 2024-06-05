@@ -1,0 +1,15 @@
+/* fichier draggable.css */
+
+[draggable] {
+    user-select: none;
+    -webkit-user-drag: element;
+    cursor: move;
+  }
+  table.sortable {
+    i.fa.fa-arrows {
+      color: #cad10a;
+    }
+    tr.over {
+      border: 1px dashed red;
+    }
+  }

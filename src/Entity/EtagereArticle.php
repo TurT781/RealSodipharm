@@ -1,5 +1,7 @@
 <?php
 
+// src/Entity/EtagereArticle.php
+
 namespace App\Entity;
 
 use App\Repository\EtagereArticleRepository;
