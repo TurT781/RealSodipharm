@@ -6,6 +6,7 @@ use App\Entity\Etagere;
 use App\Form\EtagereType;
 use App\Repository\EtagereRepository;
 use Doctrine\ORM\EntityManagerInterface;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,8 +33,16 @@ class EtagereController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($etagere);
             $entityManager->flush();
-
-            return $this->redirectToRoute('app_etagere_index', [], Response::HTTP_SEE_OTHER);
+            $hauteur = 200;
+            $largeur = 1000;
+            // $eHauteur = $entityManager->getRepository(Etagere::class)->getHauteur($hauteur);
+           
+            return $this->render('descente/index.html.twig', [
+                'etagere' => $etagere,
+                'form' => $form,
+                'hauteur' => $hauteur,
+                'largeur' => $largeur,
+            ]);
         }
 
         return $this->render('descente/index.html.twig', [
