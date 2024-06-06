@@ -1,29 +1,79 @@
-{% comment %} fichier etagere.html.twig {% endcomment %}
+{% extends 'base.html.twig' %}
 
-<table class="sortable">
-    <thead>
-        <tr>
-            <th>&nbsp;</th>
-            <th>ID</th>
-            <th>Libellé</th>
-            <th>Hauteur</th>
-            <th>Largeur</th>
-            {% comment %} <th>Longueur</th> {% endcomment %}
-            {% comment %} <th>Poids</th> {% endcomment %}
-            {% comment %} <th>Univers</th> {% endcomment %}
-            {% comment %} <th>Famille</th> {% endcomment %}
-            {% comment %} <th>Code</th> {% endcomment %}
-            {% comment %} <th>Position</th> {% endcomment %}
-        </tr>
-    </thead>
-    <tbody>
-    {% for article in articles %}
-        <tr draggable="true" rel="{{ article.id }}">
-            <td><i class="fa fa-arrows"></i></td>
-            <td><a href="{{ path('draggable_article_show', { 'id': article.id }) }}">{{ article.id }}</a></td>
-            <td>{{ article.position }}</td>
-            <td>{{ article.libelle }}</td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+{% block stylesheets %}
+    <link rel="stylesheet" href="../assets/styles/draggable.css">
+{% endblock %}
+
+{% block body %}
+    <table class="sortable">
+        <thead>
+            <tr>
+                <th>&nbsp;</th>
+                <th>ID</th>
+                <th>Position</th>
+                <th>Libellé</th>
+                <th>Hauteur</th>
+                <th>Largeur</th>
+                <!-- <th>Longueur</th> -->
+                <!-- <th>Poids</th> -->
+                <!-- <th>Univers</th> -->
+                <!-- <th>Famille</th> -->
+                <!-- <th>Code</th> -->
+            </tr>
+        </thead>
+        <tbody id="articles-list">
+        {% for article in articles %}
+            <tr draggable="true" data-id="{{ article.id }}" data-width="{{ article.largeur }}" data-height="{{ article.hauteur }}">
+                <td><i class="fa fa-arrows"></i></td>
+                <td>{{ article.id }}</td>
+                <td>{{ article.position }}</td>
+                <td>{{ article.libelle }}</td>
+                <td>{{ article.hauteur }}</td>
+                <td>{{ article.largeur }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="../assets/vendor/draggable.js"></script>
+    {% comment %} <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const list = document.getElementById('articles-list');
+            new Sortable(list, {
+                animation: 150,
+                onEnd: function(evt) {
+                    const items = list.querySelectorAll('tr');
+                    let position = 0;
+                    items.forEach(function(item) {
+                        const width = parseInt(item.dataset.width);
+                        const height = parseInt(item.dataset.height);
+                        item.style.left = position + 'px';
+                        position += width;
+                        position += 10; // Ajoutez un espace entre les articles
+                    });
+
+                    const positions = {};
+                    items.forEach((item, index) => {
+                        positions[item.dataset.id] = index + 1;
+                        item.querySelector('td:nth-child(3)').textContent = index + 1; // Update position in the table
+                    });
+
+                    fetch('/articles/update-positions', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify({ positions: positions })
+                    })
+                    .then(response => response.json())
+                    .then(data => console.log(data))
+                    .catch(error => console.error(error));
+                }
+            });
+        });
+    </script> {% endcomment %}
+{% endblock %}

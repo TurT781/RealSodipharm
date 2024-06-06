@@ -9,6 +9,16 @@
 <section>
         <div class="left-panel">
             <h1>Titre</h1>
+            {% for article in articles %}
+            <tr draggable="true" data-id="{{ article.id }}" data-width="{{ article.largeur }}" data-height="{{ article.hauteur }}">
+                <td><i class="fa fa-arrows"></i></td>
+                <td>{{ article.id }}</td>
+                <td>{{ article.position }}</td>
+                <td>{{ article.libelle }}</td>
+                <td>{{ article.hauteur }}</td>
+                <td>{{ article.largeur }}</td>
+            </tr>
+        {% endfor %}
             <select name="famille-select" id="famille">
                 <option value="">Famille</option>
             </select>

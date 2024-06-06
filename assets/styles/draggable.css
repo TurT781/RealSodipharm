@@ -1,15 +1,17 @@
-/* fichier draggable.css */
-
 [draggable] {
     user-select: none;
     -webkit-user-drag: element;
     cursor: move;
-  }
-  table.sortable {
-    i.fa.fa-arrows {
-      color: #cad10a;
-    }
-    tr.over {
-      border: 1px dashed red;
-    }
-  }
+}
+
+table.sortable i.fa.fa-arrows {
+    color: #cad10a;
+}
+
+table.sortable tr.dragging {
+    opacity: 0.5; /* Visually indicates that the item is being dragged */
+}
+
+table.sortable tr.dragover {
+    border: 1px dashed #0000ff; /* Highlight the dropzone when an item is dragged over */
+}

@@ -6,13 +6,11 @@ use App\Entity\Etagere;
 use App\Form\EtagereType;
 use App\Repository\EtagereRepository;
 use Doctrine\ORM\EntityManagerInterface;
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
 
-// #[Route('/etagere')]
 class EtagereController extends AbstractController
 {
     #[Route('/', name: 'app_etagere_index', methods: ['GET'])]
@@ -23,8 +21,28 @@ class EtagereController extends AbstractController
         ]);
     }
 
-    #[Route('/descente', name: 'app_descente', methods: ['GET', 'POST'])]
+    #[Route('/etagere/new', name: 'app_etagere_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $etagere = new Etagere();
+        $form = $this->createForm(EtagereType::class, $etagere);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($etagere);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_etagere_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('etagere/new.html.twig', [
+            'etagere' => $etagere,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/descente', name: 'app_descente', methods: ['GET', 'POST'])]
+    public function descente(Request $request, EntityManagerInterface $entityManager): Response
     {
         $etagere = new Etagere();
         $form = $this->createForm(EtagereType::class, $etagere);
@@ -35,8 +53,7 @@ class EtagereController extends AbstractController
             $entityManager->flush();
             $hauteur = 200;
             $largeur = 1000;
-            // $eHauteur = $entityManager->getRepository(Etagere::class)->getHauteur($hauteur);
-           
+
             return $this->render('descente/index.html.twig', [
                 'etagere' => $etagere,
                 'form' => $form,
@@ -80,7 +97,7 @@ class EtagereController extends AbstractController
     #[Route('/{id}', name: 'app_etagere_delete', methods: ['POST'])]
     public function delete(Request $request, Etagere $etagere, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$etagere->getId(), $request->getPayload()->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$etagere->getId(), $request->get('_token'))) {
             $entityManager->remove($etagere);
             $entityManager->flush();
         }
