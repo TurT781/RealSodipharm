@@ -9,12 +9,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class EtagereType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('hauteur')
             ->add('largeur')
         ;
+        return (['hauteur', 'largeur']);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

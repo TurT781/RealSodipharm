@@ -16,6 +16,17 @@ class EtagereRepository extends ServiceEntityRepository
         parent::__construct($registry, Etagere::class);
     }
 
+    public function getHauteur(int $hauteur) 
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT hauteur
+            FROM App\Entity\Etagere hauteur'
+        )->setParameter('hauteur', $hauteur);
+
+        return $query->getResult();
+    }
     //    /**
     //     * @return Etagere[] Returns an array of Etagere objects
     //     */

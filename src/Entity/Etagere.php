@@ -14,7 +14,7 @@ class Etagere
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'etageres')]
-    private ?descente $descente = null;
+    private ?Descente $descente = null;
 
     #[ORM\Column]
     private ?int $hauteur = null;
@@ -27,12 +27,12 @@ class Etagere
         return $this->id;
     }
 
-    public function getDescente(): ?descente
+    public function getDescente(): ?Descente
     {
         return $this->descente;
     }
 
-    public function setDescente(?descente $descente): static
+    public function setDescente(?Descente $descente): static
     {
         $this->descente = $descente;
 
